@@ -3,6 +3,10 @@ import { seedProducts } from "../artifacts/api-server/src/lib/productSeed";
 import { logger } from "../artifacts/api-server/src/lib/logger";
 
 let seedPromise: Promise<void> | undefined;
+const expressHandler = app as unknown as (
+  request: any,
+  response: any,
+) => void;
 
 async function ensureSeeded() {
   seedPromise ??= seedProducts().catch((error) => {
@@ -27,5 +31,5 @@ export default async function handler(
     return;
   }
 
-  return app.handle(request, response);
+  return expressHandler(request, response);
 }
