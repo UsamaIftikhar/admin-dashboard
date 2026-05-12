@@ -27,5 +27,5 @@ export default async function handler(
     return;
   }
 
-  return app(request, response);
+  return app.handle(request, response);
 }
