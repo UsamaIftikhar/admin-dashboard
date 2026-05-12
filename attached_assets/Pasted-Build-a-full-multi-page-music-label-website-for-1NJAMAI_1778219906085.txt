@@ -1,0 +1,352 @@
+Build a full multi-page music label website for "1NJAMAICAMUSIC" — a Jamaican music label representing artists Hintell, Dark Koko, Swazz, and Mee$ch operating under the "Rawtracks" brand. This is a production-ready, animated, dark cinematic storytelling website. Every section must be filled with real content — NO placeholder text, NO lorem ipsum, NO empty states anywhere.
+
+---
+
+## TECH STACK
+- React 18 + Vite
+- React Router DOM v6 (multi-page routing)
+- TailwindCSS v3
+- GSAP + ScrollTrigger + SplitText (for all animations)
+- Framer Motion (for page transitions)
+- Lucide React (icons)
+- Google Fonts: "Bebas Neue" (display/headings) + "DM Sans" (body)
+
+---
+
+## COLOR SYSTEM (CSS Variables — use everywhere)
+```css
+--black: #0A0A0A
+--dark: #111111
+--card-bg: #161616
+--border: #222222
+--yellow: #E8FF00
+--yellow-dim: #B8CC00
+--green: #39FF14
+--white: #F5F5F5
+--gray: #888888
+--overlay: rgba(10,10,10,0.85)
+```
+
+---
+
+## GLOBAL DESIGN RULES
+- Background: #0A0A0A (near-black) throughout ALL pages
+- All heading text: Bebas Neue, uppercase, tracked wide
+- Body text: DM Sans, #F5F5F5 or #888888
+- Accent color: #E8FF00 (neon yellow) — used for highlights, underlines, CTA buttons, active states
+- Secondary accent: #39FF14 (neon green) — used for the logo only and subtle glows
+- Buttons: Black background, yellow border + text, hover fills yellow with black text. Pill-shaped (border-radius: 999px) or sharp rectangle — alternate per section.
+- Section dividers: thin 1px #222222 horizontal lines or yellow dashes
+- Cards: #161616 background, 1px #222222 border, subtle yellow glow on hover (box-shadow: 0 0 20px rgba(232,255,0,0.15))
+- Custom cursor: large yellow circle outline that follows mouse with slight lag (CSS + JS)
+- Grain overlay: add a subtle SVG noise texture fixed over the entire site at 4% opacity
+- Smooth scroll: use Lenis or CSS scroll-behavior: smooth
+- All images: use high-quality music/Jamaican-vibe placeholder images from https://picsum.photos with dark overlay filters until real images are swapped
+
+---
+
+## NAVIGATION (Sticky, all pages)
+- Logo: "1" styled in neon green Bebas Neue, large — left side
+- Nav links: HOME, ARTISTS, EVENTS & CONTACT, BOOKING — center, Bebas Neue, uppercase, spaced wide
+- Active link: underlined with #E8FF00 2px line
+- Hover: yellow color + slight letter-spacing expansion (CSS transition)
+- ARTISTS dropdown: Hintell, Dark Koko, Swazz, Mee$ch — each links to their individual artist page
+- EVENTS & CONTACT dropdown: Event List, Contact Us
+- Right side: Hamburger menu icon (yellow lines) for mobile
+- Mobile menu: full-screen black overlay with large Bebas Neue nav links, staggered fade-in
+- On scroll down: nav shrinks height slightly and adds blur backdrop (backdrop-filter: blur(20px)) with dark semi-transparent bg
+- NO WordPress admin bar — clean nav only
+
+---
+
+## PAGES & CONTENT
+
+---
+
+### PAGE 1: HOME (/)
+
+#### SECTION 1 — HERO
+- Full viewport height (100vh)
+- Background: dark, moody photo of artists performing/in studio (use dark picsum image with overlay)
+- Overlay: linear-gradient from transparent to #0A0A0A at bottom
+- Animated text entrance: "WE COLLABORATE" (line 1), "WITH AMBITIOUS" (line 2 — "DJS" underlined yellow), "AND PRODUCERS." (line 3 — "PRODUCERS" underlined yellow)
+- Each word animates in using GSAP SplitText — characters fly in from bottom with stagger 0.03s, ease: power4.out, duration 1s
+- Subtext (DM Sans, #888888): "Booking world-renowned and rising music artists, DJs, and producers out of Jamaica."
+- CTA button: "EXPLORE ARTISTS →" — yellow border, pill-shaped
+- Small scroll indicator: "SCROLL" text + animated bouncing arrow in yellow at bottom center
+- Subtle yellow neon glow orb in background (blurred radial gradient, positioned top-right)
+
+#### SECTION 2 — MARQUEE TICKER
+- Full-width scrolling marquee: "RAWTRACKS · LET'S CREATE SOMETHING GREAT TOGETHER · 1NJAMAICAMUSIC · HINTELL · DARK KOKO · SWAZZ · MEE$CH · RAWTRACKS ·"
+- Yellow text (#E8FF00) on dark background, Bebas Neue, font-size: 1.2rem, letter-spacing: 0.2em
+- Infinite CSS animation, smooth left-scroll, no gaps
+
+#### SECTION 3 — WHAT WE DO
+- Left side: label "WHAT WE DO" in yellow small caps
+- Heading: "WE COLLABORATE WITH AMBITIOUS DJS AND PRODUCERS. LET'S MAKE SOMETHING GREAT TOGETHER." — Bebas Neue, 4xl–6xl, white
+- Right side: 3 stat boxes — "4 ARTISTS", "50+ RELEASES", "WORLDWIDE BOOKINGS" — each with yellow number, white label
+- On scroll: heading letters animate in from blur (GSAP SplitText + ScrollTrigger, scrub: false, once)
+- Stat numbers count up from 0 using GSAP when in viewport
+
+#### SECTION 4 — OUR ARTISTS (Preview)
+- Section label: "OUR ARTISTS"
+- Horizontal scroll row of 4 artist cards: Hintell, Dark Koko, Swazz, Mee$ch
+- Each card: full-bleed artist photo (portrait ratio), name in Bebas Neue at bottom, genre tag in yellow
+  - Hintell: Dancehall / Hip-Hop
+  - Dark Koko: Afrobeats / Dancehall
+  - Swazz: Dancehall / Electronic
+  - Mee$ch: Hip-Hop / Trap
+- Hover: image zooms 1.05x, yellow overlay appears at bottom with "VIEW ARTIST →" link
+- Cards animate in from bottom on scroll (GSAP stagger 0.15s)
+- "SEE ALL ARTISTS →" link below, yellow underline
+
+#### SECTION 5 — NEW DROPS
+- Section label: "NEW DROPS"
+- 4-column grid of release cards (responsive: 2 cols mobile)
+- Release cards with data:
+  1. "Party Time" — Hintell — Dancehall
+  2. "Die Once" — Hintell — Hip-Hop
+  3. "Sunday Mix" — Hintell — Techno / Peak Time
+  4. "Hypnotic Society" — Hintell — Techno / Driving
+  5. "Club Shake" — Swazz — Dancehall
+  6. "Dubai" — Swazz ft. Stylo G — Dancehall
+  7. "Glocks and Mimosas" — Dark Koko — Afrobeats
+  8. "Portland Love" — Hintell ft. Dark Koko — Dancehall
+- Each card: dark square image area (album art style), title bold, artist name yellow, genre tag gray
+- Hover: card lifts with yellow border glow
+- Cards stagger in on scroll
+
+#### SECTION 6 — FEATURED VIDEO
+- Label: "LATEST VIDEO"
+- Full-width dark container
+- Embedded YouTube thumbnail for "Swazz - Night Business" (Official Video) — clickable play button overlay in yellow
+- Title, artist, and YouTube play icon overlaid on thumbnail
+- On click: opens YouTube link in new tab (no embed iframe issues)
+
+#### SECTION 7 — ALBUM ART GALLERY
+- Label: "ALBUM ART"
+- Masonry-style grid of 12 album artwork squares
+- Real album titles from discography (same titles as New Drops section + After Party, Right Thru, Charge, Samurai, Dudus, Inevitable, Yes Please, Bad Bitch, Wangle, Black Barbie, Push Start Accelerate)
+- Each image: dark square with album name overlay on hover (yellow text)
+- Infinite marquee row of scrolling album covers (horizontal auto-scroll, two rows moving opposite directions)
+
+#### SECTION 8 — COMMUNITY (Social Feed Placeholder)
+- Label: "COMMUNITY"
+- 4x3 grid of social content thumbnails (use dark picsum images — NOT live Instagram API, to avoid broken errors)
+- Each thumbnail: play icon overlay, styled like social video posts
+- Caption below grid: "Follow us @swazz_music | @hintell_music | @darkkoko | @mee$ch"
+- "FOLLOW ON INSTAGRAM →" button — yellow border
+
+#### SECTION 9 — COLLABORATE WITH US
+- Split layout: left = dark photo, right = text
+- Heading: "WE COLLABORATE WITH NEW RISING DJs"
+- Body: "Our team is always on the lookout for new rising producers and fresh artists to join the Rawtracks family."
+- CTA: Email "booking@rawtracks.com" — yellow with arrow icon
+- "READ MORE →" button
+
+#### SECTION 10 — FOOTER
+- Logo: RAWTRACKS wordmark white, large Bebas Neue
+- 3 columns:
+  - Booking World Wide: booking@rawtracks.com
+  - Demo Publishing: demos@rawtracks.com  
+  - Music Licencing: licensing@rawtracks.com
+- Social links row: Instagram, Twitter/X, Facebook, YouTube, TikTok — icon buttons, yellow on hover
+- Bottom bar: "© 2025 1NJAMAICAMUSIC. All Rights Reserved." left | "Powered by Rawtracks" right
+- Yellow bottom border line (4px) at very bottom
+
+---
+
+### PAGE 2: ARTISTS (/artists)
+
+#### HERO
+- Heading: "OUR ARTISTS" — Bebas Neue, massive (8xl), staggered character animation on load
+- Subtext: "Representing the sound of Jamaica to the world."
+- Background: dark abstract noise/grain texture
+
+#### ARTIST GRID
+- 2x2 grid (large cards, almost full-width each)
+- Each card: full artist photo (landscape), artist name in massive Bebas Neue overlaid, genre tags in yellow pills, hover reveals dark overlay with "VIEW ARTIST →" button
+- Clicking each card routes to individual artist page
+
+---
+
+### PAGE 3: INDIVIDUAL ARTIST PAGES (/artists/hintell, /artists/dark-koko, /artists/swazz, /artists/meesch)
+
+Each artist page has:
+
+#### HERO
+- Full-width artist portrait photo (tall, cinematic)
+- Artist name in huge Bebas Neue (side or overlay, animated in on load)
+- Genre tags in yellow pills
+
+**HINTELL content:**
+- Bio: "Hintell is a versatile Jamaican artist known for blending Dancehall, Hip-Hop, and electronic sounds. With tracks like Party Time, Die Once, and Bad Bitch, he has established himself as a multi-genre force in the Caribbean music scene. Featured in The Star newspaper as 'On A Musical Mission.'"
+- Tags: Dancehall, Hip-Hop, Techno
+
+**DARK KOKO content:**
+- Bio: "Dark Koko brings Afrobeats flair and Dancehall heat to every record. Known for energetic performances and hook-driven tracks like Wangle, Black Barbie, and Portland Love ft. Hintell."
+- Tags: Afrobeats, Dancehall
+
+**SWAZZ content:**
+- Bio: "Swazz is the high-energy Dancehall and Electronic crossover artist behind hits like Night Business, Dubai ft. Stylo G, and Club Shake. Known for shutting down venues across Jamaica and international stages."
+- Tags: Dancehall, Electronic
+
+**MEE$CH content:**
+- Bio: "Mee$ch brings raw Hip-Hop and Trap energy with a Jamaican twist. A rising voice in the 1NJAMAICAMusic family."
+- Tags: Hip-Hop, Trap
+
+#### DISCOGRAPHY SECTION
+- Heading: "DISCOGRAPHY"
+- Grid of artist's release cards (same style as homepage New Drops)
+- Show at least 4–6 releases per artist with real track names
+
+#### "CREATE WITH US" SECTION
+- Text: "My team is always on the lookout for new rising producers and fresh artists to join us."
+- Email CTA: booking@rawtracks.com
+- Yellow scrolling ticker: "RAWTRACKS · LET'S CREATE SOMETHING GREAT TOGETHER ·"
+
+---
+
+### PAGE 4: EVENTS & CONTACT (/events)
+
+#### HERO
+- Background: dark DJ/vinyl photo
+- Heading: "EVENTS & CONTACT" — animated character-by-character
+
+#### CONTACT CATEGORIES (3 columns)
+1. **Booking World Wide** — booking@rawtracks.com — "Book our artists for festivals, clubs, and international tours"
+2. **Demo Publishing** — demos@rawtracks.com — "Submit your music for consideration. Thanks and best of luck!"
+3. **Music Licencing** — licensing@rawtracks.com — "License our catalog for film, TV, advertising, and sync deals"
+
+Each column: icon (Lucide), yellow heading, email link, description text
+
+#### EVENT LIST
+- Heading: "EVENTS"
+- Grid of event cards (3 columns):
+  1. Biggest Diynamic Festival 2022 — Official Afterhour — #festival — Aug 12–24, 2022
+  2. Electric Beach at Flora Gray — Meth Lee BBCRadio 1 — #livestream — Sep 27, 2022
+  3. Arena – Ten Years and Counting — #event — Mar 9, 2022
+  4. Electric Beach at Goa Beach — Pete Tong BBCRadio 3 — #djset — Nov 18, 2022
+  5. Intro Festival 2022 — Official Aftermovie — #studio — Dec 30, 2022
+  6. Raw Festival 2022 — Official Aftermovie — #studio — Dec 30, 2022
+  7. Spike Island Reunion — #festival — Aug 12–16, 2022
+  8. Electric Eclectic Event 2022 — #livestream — Sep 30, 2022
+  9. Fifth World Live – Reggie House — #event — May 10, 2022
+- Each event card: dark landscape image, event name bold, category tag in yellow, date in gray, hover reveals "VIEW EVENT →" in yellow
+- Tag filter buttons at top: ALL / #festival / #livestream / #djset / #studio / #event — clicking filters the visible cards with smooth fade transition
+
+#### BOOK THE ARTIST FORM (on this page)
+- Heading: "BOOK THE ARTIST"
+- Fields:
+  - Name (text input)
+  - Email (email input)
+  - Phone (tel input)
+  - Artist (dropdown: Hintell / Dark Koko / Swazz / Mee$ch / All Artists)
+  - Event Type (dropdown: Festival / Club Night / Private Event / Tour / Other)
+  - Event Date (date input)
+  - Message (textarea)
+- Submit button: "SEND NOW →" — large, yellow filled, black text
+- All inputs: dark background #161616, yellow border on focus, white text, DM Sans
+- Form validation: all fields required, show yellow error messages inline
+- On submit: show success toast — "Message sent! We'll be in touch within 48 hours." — green (#39FF14) notification top-right
+
+#### COMMUNITY SOCIAL GRID
+- Same as homepage community section (no broken API — static grid of social post thumbnails)
+
+---
+
+### PAGE 5: BOOKING (/booking)
+
+#### HERO
+- Heading: "BOOK AN ARTIST"
+- Subtext: "From club nights to international festivals — we make it happen."
+- Background: moody stage/performance photo
+
+#### HOW IT WORKS (3 steps, horizontal)
+1. 📋 Submit your inquiry — fill out the booking form with your event details
+2. 📞 We get in touch — our team responds within 48 hours
+3. 🎤 Confirm & perform — finalise the booking and let the music do the rest
+
+Each step: number in yellow circle, title white, description gray
+
+#### BOOKING FORM (full, same as Events page form)
+
+#### ARTIST ROSTER PREVIEW
+- Heading: "WHO YOU CAN BOOK"
+- 4 artist cards (same style as homepage): Hintell, Dark Koko, Swazz, Mee$ch
+- Each with genre tags
+
+#### FAQ SECTION
+- Heading: "FREQUENTLY ASKED"
+- Accordion-style Q&A:
+  1. Q: What's the minimum notice period for bookings? A: We recommend at least 4–6 weeks notice for domestic events and 8–12 weeks for international bookings.
+  2. Q: Do you handle international tour logistics? A: Yes — our team manages travel, accommodation, and rider requirements for international performances.
+  3. Q: How do I submit music for the label? A: Send your demo to demos@rawtracks.com with your artist name and genre.
+  4. Q: What genres do your artists perform? A: Our roster covers Dancehall, Hip-Hop, Afrobeats, Electronic, and Trap.
+  5. Q: How do I license music from your catalog? A: Contact licensing@rawtracks.com with details of your project and we'll arrange a sync deal.
+- Accordion opens/closes with smooth GSAP height animation
+
+---
+
+## ANIMATIONS — IMPLEMENT ALL OF THESE
+
+1. **Page load**: Logo + nav links fade in from top, hero text characters animate in using GSAP SplitText (chars from bottom, staggered 0.03s)
+2. **Page transitions**: Framer Motion — yellow horizontal bar wipes across screen left-to-right on route change, then reveals new page
+3. **Scroll reveals**: Every section heading uses GSAP ScrollTrigger — text blurs in from opacity 0, filter blur(20px) → blur(0), translateY(40px) → 0, once: true
+4. **Parallax hero**: Hero background image moves at 0.5x scroll speed (GSAP ScrollTrigger scrub)
+5. **Artist cards hover**: image scale 1.05, card border color → yellow, smooth 0.3s ease
+6. **Marquee ticker**: CSS infinite scroll animation, two instances side by side for seamless loop
+7. **Number counter**: Stats section numbers count up (0 → final value) when entering viewport — GSAP to() with snap
+8. **Cursor**: Custom yellow circle cursor (30px outline), follows mouse with 0.1s lag using requestAnimationFrame
+9. **Album art marquee rows**: Two rows of album art, one scrolling left, one scrolling right (CSS animation), hover pauses the row
+10. **Nav dropdown**: GSAP opacity + translateY reveal on hover, smooth 0.2s
+11. **Mobile menu**: Full-screen black overlay, nav items stagger fade-in from left, GSAP timeline
+12. **Form focus states**: Yellow glow border-color transition on input focus
+13. **Accordion**: GSAP height animation from 0 to auto for FAQ items
+14. **Toast notifications**: Slide in from top-right, auto-dismiss after 4s
+
+---
+
+## ROUTING STRUCTURE
+- / → Home
+- /artists → Artists overview
+- /artists/hintell → Hintell page
+- /artists/dark-koko → Dark Koko page
+- /artists/swazz → Swazz page
+- /artists/meesch → Mee$ch page
+- /events → Events & Contact page
+- /booking → Booking page
+- 404 page: "LOST IN THE MUSIC" — yellow heading, back to home button
+
+---
+
+## MOBILE RESPONSIVENESS
+- All sections fully responsive: 1 column on mobile, 2 on tablet, full grid on desktop
+- Navigation collapses to hamburger menu on mobile (< 768px)
+- Hero text scales down: clamp(2rem, 8vw, 6rem)
+- Touch-friendly tap targets (min 44px)
+- No horizontal scroll on any breakpoint
+
+---
+
+## QA CHECKLIST — VERIFY ALL BEFORE FINISHING
+- [ ] All 5 pages route correctly with React Router
+- [ ] No empty sections — every section has real content
+- [ ] No lorem ipsum text anywhere
+- [ ] No placeholder "@example.com" emails — use booking@rawtracks.com, demos@rawtracks.com, licensing@rawtracks.com
+- [ ] All nav links work and route to correct pages
+- [ ] Artist dropdown shows Hintell, Dark Koko, Swazz, Mee$ch — all link to individual pages
+- [ ] Events page tag filter works (ALL / #festival etc.)
+- [ ] Booking form validates all fields before submit
+- [ ] Form shows success toast on submit
+- [ ] GSAP ScrollTrigger animations fire on all scroll sections
+- [ ] SplitText hero animation plays on every page load
+- [ ] Marquee ticker runs on homepage and artist pages
+- [ ] Custom cursor renders and follows mouse
+- [ ] Grain overlay visible at low opacity
+- [ ] Mobile menu opens/closes correctly
+- [ ] All colors match the defined CSS variables (yellow: #E8FF00, green: #39FF14, black: #0A0A0A)
+- [ ] Footer has real email addresses and social links
+- [ ] Page transitions work on all route changes
+- [ ] No console errors
+- [ ] 404 page renders on unknown routes

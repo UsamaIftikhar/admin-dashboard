@@ -1,0 +1,146 @@
+ADD A COMPLETE MERCH & SHOP SYSTEM to the existing 1NJAMAICAMUSIC website.
+Do NOT rebuild or modify any existing pages, components, or routing.
+Only ADD new files, new routes, and extend existing components where specified.
+
+This system includes:
+1. Global Shop page (/shop) — all artists' merch with filters
+2. Merch section injected into every Artist Detail page
+3. Persistent Shopping Cart (slide-out drawer, visible on all pages)
+4. Checkout Flow (/checkout) — 3-step process
+5. Order Confirmation page (/order-confirmation)
+
+Same design system as existing site:
+bg: #0A0A0A | cards: #161616 | border: #222222
+yellow: #E8FF00 | green: #39FF14 | white: #F5F5F5 | gray: #888888
+Fonts: Bebas Neue (headings) + DM Sans (body)
+Animations: GSAP ScrollTrigger + Framer Motion (already installed)
+NO empty states. NO lorem ipsum. NO placeholder data anywhere.
+
+---
+
+## FILE STRUCTURE TO CREATE
+
+src/
+  data/
+    merch.js          ← all product data
+  context/
+    CartContext.jsx   ← global cart state
+  components/
+    CartDrawer.jsx    ← slide-out cart panel
+    MerchCard.jsx     ← product card component
+    QuickAddModal.jsx ← size selector popup
+    Toast.jsx         ← notification system
+  pages/
+    ShopPage.jsx      ← /shop route
+    CheckoutPage.jsx  ← /checkout route
+    OrderConfirmation.jsx ← /order-confirmation route
+
+---
+
+## STEP 1 — CREATE /src/data/merch.js
+
+```javascript
+export const merchProducts = [
+  // ─── HINTELL ───────────────────────────────────────────
+  {
+    id: "hintell-logo-tee",
+    name: "Hintell Classic Logo Tee",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "tee",
+    price: 35,
+    originalPrice: null,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    image: "https://picsum.photos/seed/hintell-tee-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-tee-1b/600/600",
+    description: "Premium heavyweight cotton tee featuring the iconic Hintell logo. Drop-shoulder fit, screen-printed in neon yellow on jet black.",
+    badge: "NEW",
+    inStock: true
+  },
+  {
+    id: "hintell-party-time-tee",
+    name: "Party Time Album Tee",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "tee",
+    price: 40,
+    originalPrice: null,
+    sizes: ["S", "M", "L", "XL"],
+    image: "https://picsum.photos/seed/hintell-tee-2/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-tee-2b/600/600",
+    description: "Limited edition tee celebrating the Party Time album. Full back print with tracklist, front chest logo.",
+    badge: "LIMITED",
+    inStock: true
+  },
+  {
+    id: "hintell-hoodie",
+    name: "Hintell Rawtracks Hoodie",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "hoodie",
+    price: 75,
+    originalPrice: null,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    image: "https://picsum.photos/seed/hintell-hoodie-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-hoodie-1b/600/600",
+    description: "Heavyweight 400gsm fleece hoodie. Embroidered Hintell × Rawtracks branding. Kangaroo pocket, ribbed cuffs.",
+    badge: "NEW",
+    inStock: true
+  },
+  {
+    id: "hintell-snapback",
+    name: "Hintell Logo Snapback",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "cap",
+    price: 30,
+    originalPrice: null,
+    sizes: ["One Size"],
+    image: "https://picsum.photos/seed/hintell-cap-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-cap-1b/600/600",
+    description: "Structured 6-panel snapback. Embroidered yellow Hintell logo on black. Flat brim, adjustable snap closure.",
+    badge: null,
+    inStock: true
+  },
+  {
+    id: "hintell-vinyl",
+    name: "Party Time — Limited Yellow Vinyl",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "vinyl",
+    price: 55,
+    originalPrice: null,
+    sizes: ["One Size"],
+    image: "https://picsum.photos/seed/hintell-vinyl-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-vinyl-1b/600/600",
+    description: "Exclusive limited pressing of Party Time on 12\" yellow vinyl. Numbered edition of 300. Includes digital download code.",
+    badge: "LIMITED",
+    inStock: true
+  },
+  {
+    id: "hintell-poster",
+    name: "Hintell Tour Poster A2",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "poster",
+    price: 20,
+    originalPrice: null,
+    sizes: ["One Size"],
+    image: "https://picsum.photos/seed/hintell-poster-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-poster-1b/600/600",
+    description: "High-quality A2 giclée print. Tour artwork on thick matte paper. Ships in protective tube.",
+    badge: "LIMITED",
+    inStock: true
+  },
+  {
+    id: "hintell-bundle",
+    name: "Hintell Ultimate Bundle",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    category: "bundle",
+    price: 120,
+    originalPrice: 150,
+    sizes: ["M", "L", "XL"],
+    image: "https://picsum.photos/seed/hintell-bundle-1/600/600",
+    imageHover: "https://picsum.photos/seed/hintell-bundle-1b/600/600",
+    description: "Classic Logo Tee + Rawtra...

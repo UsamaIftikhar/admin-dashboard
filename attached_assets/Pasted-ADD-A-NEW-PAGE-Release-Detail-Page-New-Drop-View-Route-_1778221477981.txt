@@ -1,0 +1,303 @@
+ADD A NEW PAGE: Release Detail Page (New Drop View)
+Route: /releases/:slug
+Example routes: /releases/party-time, /releases/die-once, /releases/night-business, /releases/dubai, etc.
+
+This page is linked from every release card in the "New Drops" section on the homepage AND from each artist's Discography section. Clicking any release card navigates to its detail page.
+
+---
+
+## RELEASE DATA (use this exact data — NO lorem ipsum anywhere)
+
+const releases = [
+  {
+    slug: "party-time",
+    title: "Party Time",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "October 29, 2021",
+    genre: ["Dancehall", "Hip-Hop"],
+    people: ["Ibeyi", "Mosberg"],
+    description: "Party Time is a high-energy dancehall anthem that captures the essence of Jamaica's nightlife. Hintell delivers raw energy over a hard-hitting production, cementing his place as one of the island's most electrifying performers.",
+    tracklist: [
+      { name: "Blue Ghost", type: "buy" },
+      { name: "Paranoia Overflow", type: "buy" },
+      { name: "Last Smile", type: "free" },
+      { name: "Altered Song", type: "buy" },
+      { name: "Black Hole Sun", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: {
+      spotify: "#",
+      youtube: "#",
+      soundcloud: "#",
+      tidal: "#",
+      appleMusic: "#",
+      beatport: "#"
+    }
+  },
+  {
+    slug: "die-once",
+    title: "Die Once",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "March 15, 2022",
+    genre: ["Hip-Hop", "Dark Trap"],
+    people: ["Mosberg"],
+    description: "Die Once is a cinematic, emotionally charged track where Hintell explores themes of legacy, resilience, and the relentless drive to succeed against all odds.",
+    tracklist: [
+      { name: "Die Once", type: "buy" },
+      { name: "Shadows", type: "buy" },
+      { name: "Last Breath", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "night-business",
+    title: "Night Business",
+    artist: "Swazz",
+    artistSlug: "swazz",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "June 5, 2022",
+    genre: ["Dancehall", "Electronic"],
+    people: ["Swazz", "Rawtracks Crew"],
+    description: "Night Business is Swazz's club-ready banger — pulsing basslines, late-night energy, and a hook that refuses to leave your head. The official music video has become a fan favorite.",
+    tracklist: [
+      { name: "Night Business", type: "buy" },
+      { name: "Night Business (Instrumental)", type: "buy" },
+      { name: "Night Business (Extended Mix)", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "dubai",
+    title: "Dubai",
+    artist: "Swazz ft. Stylo G",
+    artistSlug: "swazz",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "September 10, 2022",
+    genre: ["Dancehall"],
+    people: ["Swazz", "Stylo G"],
+    description: "Dubai is the Swazz and Stylo G crossover hit that took the internet by storm. Massive, infectious, and globally inspired — this is Jamaican music meeting world stages.",
+    tracklist: [
+      { name: "Dubai", type: "buy" },
+      { name: "Dubai (Acoustic)", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "glocks-and-mimosas",
+    title: "Glocks and Mimosas",
+    artist: "Dark Koko",
+    artistSlug: "dark-koko",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "January 20, 2023",
+    genre: ["Afrobeats", "Dancehall"],
+    people: ["Dark Koko"],
+    description: "Dark Koko blends Afrobeats swagger with Dancehall fire on Glocks and Mimosas — a confident, effortlessly cool track with infectious grooves and sharp lyricism.",
+    tracklist: [
+      { name: "Glocks and Mimosas", type: "buy" },
+      { name: "Glocks and Mimosas (Remix)", type: "buy" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "portland-love",
+    title: "Portland Love",
+    artist: "Hintell ft. Dark Koko",
+    artistSlug: "hintell",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "April 3, 2023",
+    genre: ["Dancehall"],
+    people: ["Hintell", "Dark Koko"],
+    description: "Portland Love is a warm, vibrant Dancehall collab between Hintell and Dark Koko — celebrating Caribbean culture, love, and the spirit of Jamaica's Portland parish.",
+    tracklist: [
+      { name: "Portland Love", type: "buy" },
+      { name: "Portland Love (Dub)", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "club-shake",
+    title: "Club Shake",
+    artist: "Swazz",
+    artistSlug: "swazz",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "July 14, 2023",
+    genre: ["Dancehall"],
+    people: ["Swazz"],
+    description: "Club Shake is exactly what it sounds like — a floor-shaking, speaker-blowing Dancehall anthem built for peak-hour sets and pure crowd energy.",
+    tracklist: [
+      { name: "Club Shake", type: "buy" },
+      { name: "Club Shake (VIP Mix)", type: "buy" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  },
+  {
+    slug: "sunday-mix",
+    title: "Sunday Mix",
+    artist: "Hintell",
+    artistSlug: "hintell",
+    label: "1NJAMAICAMUSIC",
+    releaseDate: "August 28, 2022",
+    genre: ["Techno", "Peak Time"],
+    people: ["Hintell", "Ibeyi"],
+    description: "Sunday Mix is Hintell stepping into electronic territory — a driving, hypnotic Techno journey that proves his range goes far beyond Dancehall.",
+    tracklist: [
+      { name: "Sunday Mix", type: "buy" },
+      { name: "Sunday Mix (Extended)", type: "free" }
+    ],
+    youtubeId: "dQw4w9WgXcQ",
+    streamingLinks: { spotify: "#", youtube: "#", soundcloud: "#", tidal: "#", appleMusic: "#", beatport: "#" }
+  }
+]
+
+---
+
+## RELEASE DETAIL PAGE LAYOUT — /releases/:slug
+
+Pull the correct release from the releases array using the URL slug param (useParams from React Router).
+
+---
+
+### SECTION 1 — BREADCRUMB
+- Path: Home › [Artist Name] › [Release Title]
+- Each segment is a clickable link (Home → /, Artist → /artists/[artistSlug], current page highlighted in #E8FF00)
+- Bebas Neue, small, gray with yellow active
+- Animate in from top on load (GSAP, opacity 0 → 1, y: -10 → 0, delay 0.2s)
+
+---
+
+### SECTION 2 — RELEASE HERO (two-column split layout)
+
+**LEFT COLUMN (album art side):**
+- Large square album artwork image — use dark moody picsum image with release title overlaid in large Bebas Neue
+- The album art has a subtle yellow outer glow (box-shadow: 0 0 60px rgba(232,255,0,0.2))
+- On page load: album art slides in from left (GSAP x: -80 → 0, opacity 0 → 1, duration 0.9s, ease: power3.out)
+- Below the album art: mini audio player UI (purely visual/CSS — no actual audio required):
+  - Track name on left (current track from tracklist[0])
+  - ⏮ ▶ ⏭ controls in yellow, centered
+  - "00:00 / 03:29" time display on right
+  - Thin yellow progress bar (30% filled as default state)
+  - This entire player is dark card (#161616), 1px #222 border, rounded corners
+
+**RIGHT COLUMN (release info side):**
+- Release title: Bebas Neue, massive (5xl–7xl), white, animate in from right (GSAP x: 80 → 0, opacity 0 → 1, delay 0.3s)
+- Below title: genre tag pills in yellow (#E8FF00 background, black text, small Bebas Neue, border-radius: 4px)
+- Description paragraph (DM Sans, #888, 1rem, line-height 1.7) — real text from releases data
+- Metadata block (DM Sans, small):
+  - "Label" — value: 1NJAMAICAMUSIC (yellow)
+  - "Artists" — value: artist name (white, clickable → artist page)
+  - "Release Date" — value: date (white)
+  - "People" — value: comma-separated names (white)
+- Each metadata row: label in #555 gray, value in white, separated by thin line
+- Metadata block fades in with stagger (GSAP, each row 0.1s delay apart)
+
+---
+
+### SECTION 3 — TRACKLIST
+
+- Heading: "TRACKLIST" — Bebas Neue, 2xl, white, yellow left-border accent (4px solid #E8FF00)
+- Each track row:
+  - Track number: yellow, small, monospace (#01, #02, etc.)
+  - Track name: white, DM Sans, medium weight
+  - RIGHT side: either "BUY TRACK ↗" button (yellow text, outlined, small pill) OR "FREE DOWNLOAD ↓" button (green #39FF14 text, outlined, small pill)
+  - Hover: entire row background shifts to #1a1a1a, track name turns yellow
+  - 1px #222 divider between rows
+  - On scroll into view: rows animate in from bottom, stagger 0.08s each (GSAP ScrollTrigger)
+- BUY TRACK links open external URL (# placeholder for now)
+- FREE DOWNLOAD links trigger a toast: "Redirecting to download..." in yellow top-right
+
+---
+
+### SECTION 4 — AVAILABLE ON (Streaming Platforms)
+
+- Heading: "AVAILABLE ON" — Bebas Neue, lg, #888
+- Row of platform icon buttons, horizontally spaced:
+  - Spotify (green circle icon), YouTube (red), SoundCloud (orange), Tidal (blue), Apple Music (pink), Beatport (green)
+  - Use SVG icons or Lucide alternatives — each in a dark circle button (48px), border 1px #222
+  - Hover: border turns yellow, icon glows
+  - Each links to streamingLinks[platform] from data
+- Animate in from bottom on scroll, stagger 0.06s each
+
+---
+
+### SECTION 5 — OFFICIAL VIDEO
+
+- Heading: "OFFICIAL VIDEO" — Bebas Neue, 2xl, white, yellow border
+- Full-width (max-width: 900px centered) dark container
+- YouTube thumbnail image (use picsum dark image as fallback) with:
+  - Red/yellow YouTube play button overlay centered (64px circle)
+  - Release title + artist name overlaid at bottom-left (white text, dark gradient overlay behind)
+  - On click: opens https://youtube.com/watch?v=[youtubeId] in new tab
+  - Hover: thumbnail brightness increases, play button scales 1.1x
+- Below video: small label — "Watch on YouTube ↗" in yellow, small text
+
+---
+
+### SECTION 6 — MORE FROM THIS ARTIST
+
+- Heading: "MORE FROM [ARTIST NAME]" — Bebas Neue, 2xl, white
+- Horizontal row of 3 other release cards from the same artist (filter releases by artistSlug, exclude current release)
+- Each card: album art (dark square with title overlay), release name, release date — same style as homepage New Drop cards
+- Yellow hover glow on cards
+- "VIEW ALL [ARTIST] RELEASES →" link → routes to /artists/[artistSlug]
+- Cards animate in from bottom on scroll, stagger 0.1s
+
+---
+
+### SECTION 7 — CALL TO ACTION STRIP
+
+- Full-width dark strip (#111111 background)
+- Left: "WANT TO BOOK [ARTIST NAME]?" — Bebas Neue, 3xl, white
+- Right: "BOOK NOW →" button — yellow filled, black text, large, pill-shaped
+- Button routes to /booking
+- On scroll into view: text slides in from left, button slides in from right (GSAP, x: ±60 → 0)
+
+---
+
+## ANIMATIONS FOR THIS PAGE
+
+1. **Page entrance**: Album art slides from left + title from right simultaneously on load
+2. **Breadcrumb**: fade + drop-in from top on load
+3. **Metadata rows**: stagger fade-in (0.1s each) after title animation completes
+4. **Tracklist rows**: scroll-triggered stagger reveal from bottom
+5. **Streaming icons**: scroll-triggered stagger bounce-in (y: 20 → 0, opacity 0 → 1)
+6. **Video section**: fade-in on scroll with slight scale (scale: 0.97 → 1)
+7. **More releases**: stagger cards from bottom on scroll
+8. **CTA strip**: split slide (text left, button right) on scroll
+
+---
+
+## ROUTING UPDATE
+
+In the existing router, add:
+- Route: /releases/:slug → ReleaseDetailPage component
+- In homepage "New Drops" section: wrap each release card with <Link to={`/releases/${release.slug}`}>
+- In each artist page's Discography section: wrap each release card with <Link to={`/releases/${release.slug}`}>
+- If slug doesn't match any release, show 404-style "RELEASE NOT FOUND" page with: heading "DROP NOT FOUND" in Bebas Neue yellow, subtext "This release doesn't exist or hasn't dropped yet.", back button → /
+
+---
+
+## QA ADDITIONS FOR THIS PAGE
+- [ ] All 8 release slugs route to correct detail pages
+- [ ] No empty data — every release shows real title, artist, description, genre tags, tracklist, metadata
+- [ ] Breadcrumb links work correctly (Home, Artist, Current)
+- [ ] Audio player UI renders (no actual playback needed, visual only)
+- [ ] Tracklist BUY buttons are yellow outlined
+- [ ] Tracklist FREE DOWNLOAD buttons are green (#39FF14) outlined
+- [ ] FREE DOWNLOAD click shows toast "Redirecting to download..."
+- [ ] Streaming platform icons row renders with hover states
+- [ ] YouTube video section shows thumbnail with play button
+- [ ] "More from this Artist" shows only same-artist releases, excludes current
+- [ ] CTA strip routes to /booking on button click
+- [ ] Page animations fire correctly on load
+- [ ] Mobile layout: two columns collapse to single column stack
+- [ ] Back button / breadcrumb works on mobile
